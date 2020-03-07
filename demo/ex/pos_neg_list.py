@@ -1,4 +1,4 @@
-# Insert positive number on the left and negative number on the right 
+# Insert positive number on the left and negative number on the right
 nums = []
 pos = 0
 while True:
