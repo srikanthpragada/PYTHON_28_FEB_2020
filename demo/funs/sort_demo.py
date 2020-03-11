@@ -7,3 +7,8 @@ names = ['Java', 'C#', 'Python', 'Ruby', 'JavaScript', 'C']
 
 for n in sorted(names, key=len):
     print(n)
+
+names = ['  Java ', 'c#', 'Python  ', 'Ruby', ' JavaScript', '  C']
+
+# Ignore case and strip spaces
+print(sorted(names, key=lambda s: s.strip().lower()))
