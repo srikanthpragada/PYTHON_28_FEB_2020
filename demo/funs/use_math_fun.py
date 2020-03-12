@@ -1,3 +1,3 @@
-import math_funs
+import math_funs as mf
 
-print(math_funs.iseven(10))
+print(mf.iseven(10))
