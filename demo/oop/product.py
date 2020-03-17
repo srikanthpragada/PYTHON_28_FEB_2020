@@ -23,7 +23,13 @@ class Product:
     def remove_feature(self, feature):
         self.features.remove(feature)
 
-    def net_price(self):
+    @property
+    def baseprice(self):
+        return self.price
+
+
+    @property
+    def netprice(self):
         return self.price + self.price * Product.TAX / 100
 
 
@@ -31,7 +37,7 @@ p = Product("Product1", 10000, ["f1", "f2", "f3"])
 Product.set_tax(20)    # call static method
 p.add_feature("f4")
 p.print_details()
-print(p.net_price())
+print(p.netprice)  # Access property
 
 # p2 = Product("Product2", 50000, ["f1", "f2", "f3"])
 # p2.add_feature("f4")
