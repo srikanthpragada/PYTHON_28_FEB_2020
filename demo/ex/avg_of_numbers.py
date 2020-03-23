@@ -1,16 +1,14 @@
 
-sum = 0
+sum = count = 0
 while True:
     try:
         num = int(input("Enter a number [0 to stop] :"))
         if num == 0:
             break
         sum += num
-
+        count += 1
     except Exception as ex:
-        print(type(ex))
-        print(ex)
         print("Invalid Number")
 
-print(sum)
+print(f"Average = {sum/count}")
 
