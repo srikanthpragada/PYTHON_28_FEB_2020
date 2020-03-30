@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<courses>
+    <course>
+        <name>Data Science with Python</name>
+        <stdate>06-APR-2020</stdate>
+    </course>
+    <course>
+        <name>Java SE</name>
+        <stdate>08-APR-2020</stdate>
+    </course>
+</courses>
