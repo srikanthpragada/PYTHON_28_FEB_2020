@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+</head>
+<body>
+
+<h2>Employees</h2>
+
+<ul>
+{% for emp in employees %}
+    <li>{{emp.1}} - {{emp.2}}</li>
+{% endfor %}
+</ul>
+</body>
+</html>
