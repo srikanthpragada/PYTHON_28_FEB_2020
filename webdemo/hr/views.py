@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import sqlite3
 import requests
-
+from .forms import AddEmployeeForm
 
 # Create your views here.
 
@@ -35,11 +35,11 @@ def list_countries(request):
 
 
 def add_employee(request):
-    if 'fullname' in request.GET:
+    if request.method == "POST":
         # process data
-        fullname = request.GET['fullname']
-        job = request.GET['job']
-        salary = request.GET['salary']
+        fullname = request.POST['fullname']
+        job = request.POST['job']
+        salary = request.POST['salary']
 
         # Connect to db and insert into EMPLOYEES table
         con = sqlite3.connect(r"c:\classroom\feb28\hr.db")
@@ -51,3 +51,22 @@ def add_employee(request):
         return redirect("/hr/employees")
     else:
         return render(request, 'add_employee.html')
+
+
+def add_employee_with_form(request):
+    if request.method == "POST":
+        f = AddEmployeeForm(request.POST)  # Bound form
+        # process data
+        #     # Connect to db and insert into EMPLOYEES table
+        # con = sqlite3.connect(r"c:\classroom\feb28\hr.db")
+        # cur = con.cursor()
+        # cur.execute("insert into employees (fullname,salary,job) values(?,?,?)",
+        #             (fullname, salary, job))
+        # con.commit()  # Commit transaction / Save changes
+        # con.close()
+
+        return render(request, 'add_employee_form.html',
+                      {'form' : f,  "message" :  "Added Employee Successfully!"})
+    else:
+        f = AddEmployeeForm()   #Unbound form
+        return render(request, 'add_employee_form.html', {'form' : f})
