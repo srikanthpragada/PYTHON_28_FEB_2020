@@ -56,17 +56,22 @@ def add_employee(request):
 def add_employee_with_form(request):
     if request.method == "POST":
         f = AddEmployeeForm(request.POST)  # Bound form
-        # process data
-        #     # Connect to db and insert into EMPLOYEES table
-        # con = sqlite3.connect(r"c:\classroom\feb28\hr.db")
-        # cur = con.cursor()
-        # cur.execute("insert into employees (fullname,salary,job) values(?,?,?)",
-        #             (fullname, salary, job))
-        # con.commit()  # Commit transaction / Save changes
-        # con.close()
-
-        return render(request, 'add_employee_form.html',
+        if f.is_valid():
+            fullname = f.cleaned_data['fullname']
+            job = f.cleaned_data['job']
+            salary = f.cleaned_data['salary']
+            # process data
+            # Connect to db and insert into EMPLOYEES table
+            con = sqlite3.connect(r"c:\classroom\feb28\hr.db")
+            cur = con.cursor()
+            cur.execute("insert into employees (fullname,salary,job) values(?,?,?)",
+                    (fullname, salary, job))
+            con.commit()  # Commit transaction / Save changes
+            con.close()
+            return render(request, 'add_employee_form.html',
                       {'form' : f,  "message" :  "Added Employee Successfully!"})
+        else:
+            return render(request, 'add_employee_form.html', {'form': f})
     else:
         f = AddEmployeeForm()   #Unbound form
         return render(request, 'add_employee_form.html', {'form' : f})
