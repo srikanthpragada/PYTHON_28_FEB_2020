@@ -4,7 +4,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
     function getBooks() {
-       $.get("/hr/books/dosearch?title=" + $("#title").val(),null, showBooks);
+       $.get("/books/dosearch?title=" + $("#title").val(),null, showBooks);
     }
     function showBooks(books) {
         output = "";
