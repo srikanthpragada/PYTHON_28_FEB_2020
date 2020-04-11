@@ -4,6 +4,7 @@ from django.db.models import Count, Avg
 from .models import Book
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import BookForm
+import datetime
 
 
 def book_home(request):
@@ -26,7 +27,7 @@ def book_delete(request, id):
         return render(request, 'delete.html', {'msg': 'Book Id Not Found!'})
     except Exception as ex:
         print(ex)  # Goes to server window
-        return render(request, 'delete.html',{'msg': 'Book could not be deleted!'})
+        return render(request, 'delete.html', {'msg': 'Book could not be deleted!'})
 
 
 def book_add(request):
@@ -47,9 +48,9 @@ def book_edit(request, id):
         try:
             book = Book.objects.get(id=id)
             form = BookForm(instance=book)
-            return render(request, 'edit.html',  {'form': form})
+            return render(request, 'edit.html', {'form': form})
         except ObjectDoesNotExist:
-            return render(request, 'edit.html',   {'msg': 'Book Id Not Found!'})
+            return render(request, 'edit.html', {'msg': 'Book Id Not Found!'})
     else:  # POST
         book = Book.objects.get(id=id)
         form = BookForm(instance=book, data=request.POST)
@@ -57,11 +58,17 @@ def book_edit(request, id):
             form.save()  # Update
             return redirect("/books/list")
         else:
-            return render(request, 'edit.html',  {'form': form})
+            return render(request, 'edit.html', {'form': form})
 
 
 def book_search(request):
-    return render(request, 'search.html')
+    # Use cookie search, if it is present
+    if 'search' in request.COOKIES:
+        title = request.COOKIES['search']
+    else:
+        title = ''
+
+    return render(request, 'search.html', {'title': title})
 
 
 def book_do_search(request):
@@ -69,4 +76,8 @@ def book_do_search(request):
     # convert Book objects to dict
     books = list(Book.objects.filter(title__contains=title).values())
     # send list of dict in the form of array of json objects
-    return JsonResponse(books, safe=False)
+    resp = JsonResponse(books, safe=False)
+    # Create cookie with name is search and value is value of title
+    resp.set_cookie("search", title,
+                    expires=datetime.datetime.now() + datetime.timedelta(days=7))
+    return resp

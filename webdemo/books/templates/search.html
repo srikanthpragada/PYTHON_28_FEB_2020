@@ -7,10 +7,17 @@
        $.get("/books/dosearch?title=" + $("#title").val(),null, showBooks);
     }
     function showBooks(books) {
-        output = "";
+        $("#books").html("");  // clear div
+        if (books.length == 0)
+        {
+            alert("Sorry! No books found!");
+            return;
+        }
+        output = "<ul>";
         for(i=0; i < books.length; i ++)
-             output += "<div>" + books[i].title + " - " + books[i].price + "</div>";
+             output += "<li>" + books[i].title + " - " + books[i].price + "</li>";
 
+        output += "</ul>";
         $("#books").html(output)
     }
 
@@ -18,7 +25,7 @@
 
 <h2>Search</h2>
 
-Title : <input type="text" id="title"/>
+Title : <input type="text" id="title" value="{{title}}"/>
 <button onclick="getBooks()">Go</button>
 <p></p>
 <div id="books">
