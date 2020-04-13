@@ -48,7 +48,7 @@ def add_employee(request):
                     (fullname, salary, job))
         con.commit()  # Commit transaction / Save changes
         con.close()
-        return redirect("/hr/employees")
+        return redirect("/books/employees")
     else:
         return render(request, 'add_employee.html')
 

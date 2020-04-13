@@ -23,7 +23,7 @@ def book_delete(request, id):
     try:
         book = Book.objects.get(id=id)
         book.delete()
-        return redirect("/hr/books/list")
+        return redirect("/books/books/list")
     except ObjectDoesNotExist:
         return render(request, 'books/delete.html',
                       {'msg': 'Book Id Not Found!'})
@@ -42,7 +42,7 @@ def book_add(request):
         form = BookForm(request.POST)
         if form.is_valid():
             form.save()  # Add book to table
-            return redirect("/hr/books/list")
+            return redirect("/books/books/list")
         else:
             return render(request, 'books/add.html',
                           {'form': form})
@@ -63,7 +63,7 @@ def book_edit(request, id):
         form = BookForm(instance=book, data=request.POST)
         if form.is_valid():
             form.save()   # Update
-            return redirect("/hr/books/list")
+            return redirect("/books/books/list")
         else:
             return render(request, 'books/edit.html',
                           {'form': form})

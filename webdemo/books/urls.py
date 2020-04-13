@@ -1,6 +1,7 @@
 
 from django.urls import path
-from . import views
+from . import views, class_views
+from .rest import rest_views
 
 urlpatterns = [
     path('home/', views.book_home),
@@ -10,4 +11,10 @@ urlpatterns = [
     path('edit/<int:id>', views.book_edit),
     path('search/', views.book_search),
     path('dosearch/', views.book_do_search),
+
+    path("listbooks/", class_views.ListBooks.as_view()),
+
+    path('rest/books/', rest_views.process_books),
+    path('rest/books/<int:id>', rest_views.process_one_book),
+
 ]
