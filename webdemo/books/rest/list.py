@@ -6,6 +6,6 @@ if resp.status_code == 200:
     # Convert array of json objects to list of dict
     books = resp.json()
     for book in books:
-         print(f"{book['id']} - {book['title']} - {book['author']}")
+         print(f"{book['id']} - {book['title']} - {book['author']} - {book['price']}")
 else:
     print("Sorry! Could not get details of books!")

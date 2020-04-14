@@ -3,6 +3,7 @@ import requests
 title = input("Enter title :")
 author = input("Enter author : ")
 price = input("Enter price : ")
+
 data = {'title': title, 'author': author,'price': price}
 
 resp = requests.post("http://localhost:8000/books/rest/books/", data)
